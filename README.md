@@ -5,7 +5,7 @@
 We are looking for a discord bot to render a token's image on the command of `!view <tokenId>`
 This bot should be written in Node.Js.
 
-Please do not hard-code your API key.
+Please do not hard-code your API key. use `process.env.DISCORD_BOT_KEY`
 
 This request has come from the community.
 
