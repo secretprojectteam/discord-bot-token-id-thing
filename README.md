@@ -27,4 +27,4 @@ Pretty much all of the blockchain code you need can be found in the leaderboard 
 7. Once it's merged, you will get the prize
 
 ### What you are competing for
-You will get X Random CFAs from our community wallet.
+You will get 2 Random CFAs from our community wallet.
