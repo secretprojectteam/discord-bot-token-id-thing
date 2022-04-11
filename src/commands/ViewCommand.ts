@@ -45,7 +45,7 @@ export const ViewCommand: Command = {
         interaction.deferReply();
 
         const chainfaceNumer = interaction.options.getInteger("number");
-        if (!chainfaceNumer) {
+        if (chainfaceNumer !== 0 && !chainfaceNumer) {
             return interaction.editReply({ content: "Please provide a valid chainface number." });
         }
 
@@ -77,7 +77,5 @@ export const ViewCommand: Command = {
         .setImage("attachment://Image.png")
 
         interaction.editReply({ embeds: [embed], files: [file] });
-
-        
     }
 };
