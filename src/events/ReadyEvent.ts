@@ -1,6 +1,7 @@
 import { Client, Constants } from "discord.js";
 import { Event } from "../datamodel/Event";
 import { setGuildCommands } from "../setup/setGuildCommands";
+import { fetchTotalSupply } from "../utilities/fetchTotalSupply";
 
 export const ReadyEvent: Event = {
     name: Constants.Events.CLIENT_READY,
@@ -9,6 +10,8 @@ export const ReadyEvent: Event = {
         if (!client.user || !client.application) {
             return;
         }
+
+        fetchTotalSupply()
         
         client.guilds.cache.forEach((guild) => {
             setGuildCommands(guild);

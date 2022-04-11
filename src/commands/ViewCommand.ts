@@ -2,7 +2,9 @@ import { CommandInteraction, Constants, MessageAttachment, MessageEmbed } from "
 import { Command } from "../datamodel/Command";
 import { ethers } from "ethers";
 import nodeHtmlToImage = require("node-html-to-image");
-import {abi} from "../utilities/abi"
+import { abi } from "../utilities/abi"
+import { totalSupply } from "../utilities/fetchTotalSupply";
+import { contractAddress } from "../utilities/dotenv";
 
 function buildTheHTML(svg: string) {
     return `
@@ -25,8 +27,6 @@ function buildTheHTML(svg: string) {
 </html>
 `
 }
-
-const contractAddress = "0x93a796B1E846567Fe3577af7B7BB89F71680173a"
 
 export const ViewCommand: Command = {
     name: "view",
@@ -51,8 +51,8 @@ export const ViewCommand: Command = {
 
         const provider = ethers.getDefaultProvider();
         const contract = new ethers.Contract(contractAddress, abi, provider);
-        const totalSuppy = await contract.totalSupply();
-        if (chainfaceNumer < 0 || chainfaceNumer > totalSuppy) {
+        
+        if (chainfaceNumer < 0 || chainfaceNumer > totalSupply) {
             return interaction.editReply({ content: "No Chainface under this number." });
         }
         const svg = await contract.renderSvg(chainfaceNumer);
