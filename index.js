@@ -1,8 +1,17 @@
-const { Client, Intents } = require('discord.js');
+const { Client, Intents, MessageAttachment } = require('discord.js');
+const Web3 = require('web3');
 require('dotenv').config();
-const { DISCORD_BOT_KEY, DISCORD_CLIENT_ID } = process.env;
+const { DISCORD_BOT_KEY, DISCORD_CLIENT_ID, INFURA_ENDPOINT } = process.env;
+const fs = require('fs');
+const { svg2png } = require('svg-png-converter');
+
+const contractJSON = fs.readFileSync('./contract/abi.json');
+const CONTRACT_ABI = JSON.parse(contractJSON);
+const CONTRACT_ADDRESS = '0x93a796B1E846567Fe3577af7B7BB89F71680173a';
 
 const DISCORD_COMMAND_PREFIX = '!view';
+const web3 = new Web3(INFURA_ENDPOINT);
+const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
 /**
  * The Discord bot needs the following Bot Permissions:
@@ -26,18 +35,42 @@ client.once('ready', () => {
 
 client.login(DISCORD_BOT_KEY);
 
-client.on('messageCreate', (message) => {
+client.on('messageCreate', async (message) => {
     if (message.content.startsWith(DISCORD_COMMAND_PREFIX)) {
         const [_command, tokenId] = message.content.split(' ');
         const parsedTokenId = parseInt(tokenId, 10);
 
         if (!isNaN(parsedTokenId)) {
-            message.channel.send({
-                content: 'boba!',
-                files: [
-                    'https://upload.wikimedia.org/wikipedia/commons/a/a2/Bubble_Tea.png',
-                ],
-            });
+            try {
+                const svg = await contract.methods
+                    .renderSvg(parsedTokenId)
+                    .call();
+
+                const isValidSvg = svg.startsWith('<svg');
+                if (!isValidSvg) {
+                    message.reply(
+                        `Beep boop: I couldn't find a token with ID ${parsedTokenId}.`
+                    );
+                    return;
+                }
+
+                const outputBuffer = await svg2png({
+                    input: svg,
+                    encoding: 'buffer',
+                    format: 'png',
+                    quality: 1,
+                });
+
+                message.channel.send({
+                    content: `Chainfaces #${parsedTokenId}`,
+                    files: [
+                        new MessageAttachment(
+                            outputBuffer,
+                            `${parsedTokenId}.png`
+                        ),
+                    ],
+                });
+            } catch {}
         } else {
             message.reply(
                 `Invalid token ID used. Please use a number.\nExample: \`${DISCORD_COMMAND_PREFIX} 123\``
