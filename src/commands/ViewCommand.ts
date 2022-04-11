@@ -1,81 +1,51 @@
-import { CommandInteraction, Constants, MessageAttachment, MessageEmbed } from "discord.js";
+import { CommandInteraction, Constants } from "discord.js";
 import { Command } from "../datamodel/Command";
-import { ethers } from "ethers";
-import nodeHtmlToImage = require("node-html-to-image");
-import { abi } from "../utilities/abi"
-import { totalSupply } from "../utilities/fetchTotalSupply";
-import { contractAddress } from "../utilities/dotenv";
-
-function buildTheHTML(svg: string) {
-    return `
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <style>
-        body { 
-            width: 400px; 
-        } 
-        svg{
-            width: 400px; 
-            heigth: 400px;
-        }
-    </style>
-    </head>
-    <bod>
-        ${svg}
-    </bod>
-</html>
-`
-}
+import { displayChainface } from "../replies/viewCommand/displayChainface";
+import { maximumIndex } from "../utilities/dotenv";
 
 export const ViewCommand: Command = {
     name: "view",
-    description: "View your chainface in discord.",
+    description: "View a chainface in discord.",
     defaultPermission: true,
     options: [
         {
-            name: "number",
-            description: "The number of the Chainface you want to display.",
-            type: Constants.ApplicationCommandOptionTypes.INTEGER,
-            required: true
+            name: "specific",
+            description: "View a specific chainface.",
+            type: Constants.ApplicationCommandOptionTypes.SUB_COMMAND,
+            options: [
+                {
+                    name: "number",
+                    description: "The number of the Chainface you want to display.",
+                    type: Constants.ApplicationCommandOptionTypes.INTEGER,
+                    required: true
+                }
+            ]
+        },
+        {
+            name: "random",
+            description: "View a random chainface.",
+            type: Constants.ApplicationCommandOptionTypes.SUB_COMMAND
         }
     ],
     permissions: async () => { return []; },
     execute: async (interaction: CommandInteraction) => {
-        interaction.deferReply();
 
-        const chainfaceNumer = interaction.options.getInteger("number");
-        if (chainfaceNumer !== 0 && !chainfaceNumer) {
-            return interaction.editReply({ content: "Please provide a valid chainface number." });
+        if (interaction.options.getSubcommand() === "specific") {
+            const chainfaceNumber = interaction.options.getInteger("number");
+            if (chainfaceNumber !== 0 && !chainfaceNumber) {
+                return await interaction.reply({ content: "Please provide a valid chainface number." });
+            }
+            if (chainfaceNumber < 0 || chainfaceNumber > maximumIndex) {
+                return await interaction.reply({ content: "No Chainface under this number." });
+            }
+            displayChainface(interaction, chainfaceNumber);
+        } else if (interaction.options.getSubcommand() === "random") {
+            const randomNumber = Math.floor(Math.random() * (maximumIndex + 1))
+            displayChainface(interaction, randomNumber);
+        } else {
+            return await interaction.reply({ content: "This did not work. But why? Do you know it? Because I do not." });
         }
 
-        const provider = ethers.getDefaultProvider();
-        const contract = new ethers.Contract(contractAddress, abi, provider);
         
-        if (chainfaceNumer < 0 || chainfaceNumer > totalSupply) {
-            return interaction.editReply({ content: "No Chainface under this number." });
-        }
-        const svg = await contract.renderSvg(chainfaceNumer);
-
-        const html = buildTheHTML(svg)
-
-        const output = await nodeHtmlToImage({
-            html: html,
-            quality: 100,
-            type: "png",
-            puppeteerArgs: {
-              args: ["--no-sandbox"],
-            },
-            encoding: "binary"
-          }) as Buffer;
-
-        const file = new MessageAttachment(output, "Image.png");
-
-        const embed = new MessageEmbed()
-        .setTitle(`Chainface #${chainfaceNumer}`)
-        .setURL(`https://opensea.io/assets/${contractAddress}/${chainfaceNumer}`)
-        .setImage("attachment://Image.png")
-
-        interaction.editReply({ embeds: [embed], files: [file] });
     }
 };
