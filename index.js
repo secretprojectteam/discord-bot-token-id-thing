@@ -17,7 +17,7 @@ const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
  * The Discord bot needs the following Bot Permissions:
  * 1. Read Messages/View Channels
  * 2. Send Messages
- * 3. Send MEssages in Threads
+ * 3. Send Messages in Threads
  * 4. Embed Links
  * 5. Attach Files
  */
@@ -32,7 +32,6 @@ const client = new Client({
 client.once('ready', () => {
     console.log('Ready!');
 });
-
 client.login(DISCORD_BOT_KEY);
 
 client.on('messageCreate', async (message) => {

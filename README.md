@@ -28,3 +28,21 @@ Pretty much all of the blockchain code you need can be found in the leaderboard 
 
 ### What you are competing for
 You will get 2 Random CFAs from our community wallet.
+
+
+---
+
+# Requirements
+
+1. Node 16.4.2+
+1. [Node Canvas](https://github.com/Automattic/node-canvas)
+   1. Used to convert the Chainface SVG to a PNG. Discord does not support attaching SVGs so we need to convert before sending to Discord.
+1. [Infura Account](https://infura.io/)
+   1. This is used to read from the Blockchain, specifically the SVG data for each token.
+1. [Create a Discord Bot](https://discord.com/developers/applications)
+   1. You will need the following permissions:
+      1. Read Messages/View Channels
+      1. Send Messages
+      1. Send Messages in Threads
+      1. Embed Links
+      1. Attach Files
