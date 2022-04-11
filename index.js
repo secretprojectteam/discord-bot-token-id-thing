@@ -62,7 +62,7 @@ client.on('messageCreate', async (message) => {
                 });
 
                 message.channel.send({
-                    content: `Chainfaces #${parsedTokenId}`,
+                    content: `Chainfaces #${parsedTokenId}\nOpensea: https://opensea.io/assets/0x93a796b1e846567fe3577af7b7bb89f71680173a/${parsedTokenId}`,
                     files: [
                         new MessageAttachment(
                             outputBuffer,
