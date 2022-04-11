@@ -1,0 +1,29 @@
+{
+  "name": "discord-bot-token-id-thing",
+  "version": "1.0.0",
+  "description": "We are looking for a discord bot to render a token's image on the command of `!view <tokenId>`\r This bot should be written in Node.Js.",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/Bot.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/54657566656c/discord-bot-token-id-thing.git"
+  },
+  "author": "Teufel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/54657566656c/discord-bot-token-id-thing/issues"
+  },
+  "homepage": "https://github.com/54657566656c/discord-bot-token-id-thing#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.12.0",
+    "@types/node": "^17.0.23",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "ethers": "^5.6.2",
+    "node-html-to-image": "^3.2.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  }
+}
