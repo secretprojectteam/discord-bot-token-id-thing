@@ -28,7 +28,15 @@ client.login(DISCORD_BOT_KEY);
 
 client.on('messageCreate', (message) => {
     if (message.content.startsWith(DISCORD_COMMAND_PREFIX)) {
-        console.log(message);
-        message.reply('hello');
+        const [_command, tokenId] = message.content.split(' ');
+        const parsedTokenId = parseInt(tokenId, 10);
+
+        if (!isNaN(parsedTokenId)) {
+            message.reply('hello');
+        } else {
+            message.reply(
+                `Invalid token ID used. Please use a number.\nExample: \`${DISCORD_COMMAND_PREFIX} 123\``
+            );
+        }
     }
 });
