@@ -32,7 +32,12 @@ client.on('messageCreate', (message) => {
         const parsedTokenId = parseInt(tokenId, 10);
 
         if (!isNaN(parsedTokenId)) {
-            message.reply('hello');
+            message.channel.send({
+                content: 'boba!',
+                files: [
+                    'https://upload.wikimedia.org/wikipedia/commons/a/a2/Bubble_Tea.png',
+                ],
+            });
         } else {
             message.reply(
                 `Invalid token ID used. Please use a number.\nExample: \`${DISCORD_COMMAND_PREFIX} 123\``
