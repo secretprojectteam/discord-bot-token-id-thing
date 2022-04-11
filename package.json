@@ -1,0 +1,27 @@
+{
+  "name": "discord-bot-token-id-thing",
+  "version": "1.0.0",
+  "description": "### Description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnPhamous/discord-bot-token-id-thing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnPhamous/discord-bot-token-id-thing/issues"
+  },
+  "homepage": "https://github.com/JohnPhamous/discord-bot-token-id-thing#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0"
+  },
+  "engines": {
+    "node": ">=16.14.2"
+  }
+}
