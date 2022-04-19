@@ -33,17 +33,20 @@ export const ViewCommand: Command = {
         if (interaction.options.getSubcommand() === "specific") {
             const chainfaceNumber = interaction.options.getInteger("number");
             if (chainfaceNumber !== 0 && !chainfaceNumber) {
-                return await interaction.reply({ content: "Please provide a valid chainface number." });
+                return await interaction.reply({ content: "Please provide a valid chainface number.", ephemeral: true });
             }
             if (chainfaceNumber < 0 || chainfaceNumber > maximumIndex) {
-                return await interaction.reply({ content: "No Chainface under this number." });
+                return await interaction.reply({ content: "No Chainface under this number.", ephemeral: true });
             }
             displayChainface(interaction, chainfaceNumber);
         } else if (interaction.options.getSubcommand() === "random") {
             const randomNumber = Math.floor(Math.random() * (maximumIndex + 1))
             displayChainface(interaction, randomNumber);
         } else {
-            return await interaction.reply({ content: "This did not work. But why? Do you know it? Because I do not." });
+            return await interaction.reply({ 
+                content: "This did not work. But why? Do you know it? Because I do not.", 
+                ephemeral: true 
+            });
         }
 
         

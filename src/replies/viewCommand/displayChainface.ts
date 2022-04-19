@@ -29,7 +29,7 @@ function buildTheHTML(svg: string) {
 export async function displayChainface(interaction: CommandInteraction, id: number) {
     
     if (id < 0 || id > maximumIndex) {
-        return await interaction.reply({ content: "No Chainface under this number." });
+        return await interaction.reply({ content: "No Chainface under this number.", ephemeral: true });
     }
     interaction.deferReply();
     const provider = ethers.getDefaultProvider();
