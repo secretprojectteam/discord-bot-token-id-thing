@@ -43,5 +43,5 @@ export async function displaySVG(interaction: CommandInteraction, svg: string, t
         .setURL(url)
         .setImage("attachment://Image.png");
 
-    interaction.editReply({ embeds: [embed], files: [file] });
+    await interaction.editReply({ embeds: [embed], files: [file] });
 }

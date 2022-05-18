@@ -8,11 +8,11 @@ export async function displayCFA(interaction: CommandInteraction, id: number) {
     if (id < 0 || id > maximumCFAIndex) {
         return await interaction.reply({ content: "No CFA under this number.", ephemeral: true });
     }
-    interaction.deferReply();
+    await interaction.deferReply();
     const provider = ethers.getDefaultProvider();
     const contract = new ethers.Contract(cFAContractAddress, abi, provider);
     const svg = await contract.renderSvg(id);
     const title = `CFA #${id}`;
     const url = `https://opensea.io/assets/${cFAContractAddress}/${id}`
-    displaySVG(interaction, svg, title, url);
+    await displaySVG(interaction, svg, title, url);
 }

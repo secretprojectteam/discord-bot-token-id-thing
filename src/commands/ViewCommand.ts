@@ -62,9 +62,9 @@ export const ViewCommand: Command = {
     permissions: async () => { return []; },
     execute: async (interaction: CommandInteraction) => {
         if (interaction.options.getSubcommandGroup() === "cfa") {
-            processViewCFACommand(interaction);
+            await processViewCFACommand(interaction);
         } else if (interaction.options.getSubcommandGroup() === "cf") {
-            processViewCFCommand(interaction);
+            await processViewCFCommand(interaction);
         } else {
             return await interaction.reply({ 
                 content: "This did not work. But why? Do you know it? Because I do not.", 

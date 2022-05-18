@@ -11,10 +11,10 @@ export async function processViewCFACommand(interaction: CommandInteraction) {
         if (number < 0 || number > maximumCFAIndex) {
             return await interaction.reply({ content: "No CFA under this number.", ephemeral: true });
         }
-        displayCFA(interaction, number);
+        await displayCFA(interaction, number);
     } else if (interaction.options.getSubcommand() === "random") {
         const randomNumber = Math.floor(Math.random() * (maximumCFAIndex + 1))
-        displayCFA(interaction, randomNumber);
+        await displayCFA(interaction, randomNumber);
     } else {
         return await interaction.reply({ 
             content: "This did not work. But why? Do you know it? Because I do not.", 
