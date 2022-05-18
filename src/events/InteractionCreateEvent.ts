@@ -1,6 +1,7 @@
 import { BaseCommandInteraction, Constants } from "discord.js";
 import { Event } from "../datamodel/Event";
 import { Commands } from "../Commands";
+import { handleLeaderboardInteraction } from "../replies/leaderboard/handleLeaderboardInteraction";
 
 export const InteractionCreateEvent: Event = {
     name: Constants.Events.INTERACTION_CREATE,
@@ -15,6 +16,8 @@ export const InteractionCreateEvent: Event = {
                 if (!(error instanceof Error)) { throw error; }
                 interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
             }
-        } 
+        } else if (interaction.isButton()) {
+            handleLeaderboardInteraction(interaction);
+        }
     }
 };
