@@ -1,4 +1,5 @@
 import Keyv from "keyv";
+import KeyvSqlite from "@keyv/sqlite";
 
 export enum DatabaseKeys {
     blockNumber = "blockNumber",
@@ -7,5 +8,5 @@ export enum DatabaseKeys {
 }
 
 export function database(): Keyv {
-    return new Keyv("sqlite://database/database.sqlite");
+    return new Keyv({ store: new KeyvSqlite('sqlite://database/database.sqlite')})
 }
