@@ -3,4 +3,4 @@ import { InteractionCreateEvent } from "./events/InteractionCreateEvent";
 import { ReadyEvent } from "./events/ReadyEvent";
 
 
-export const Events: Event[] = [InteractionCreateEvent, ReadyEvent];
+export const Events: Event[] = [InteractionCreateEvent];
