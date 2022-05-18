@@ -10,15 +10,15 @@ export async function setGuildCommands(guild: Guild) {
 }
 
 async function setGuildCommandPermissions(guild: Guild, commands: Command[]) {
-    const guildCommands = await guild.commands.fetch();
-    for (const commandWithPermissions of commands.filter(command => command.defaultPermission !== true)) {
-        const guildCommand = guildCommands.find(command => command.name === commandWithPermissions.name);
-        if (guildCommand !== undefined) {
-            const permissions = await commandWithPermissions.permissions(guild);
-            guild.commands.permissions.set({
-                command: guildCommand.id,
-                permissions: permissions
-            });
-        }
-    }
+    // const guildCommands = await guild.commands.fetch();
+    // for (const commandWithPermissions of commands.filter(command => command.defaultPermission !== true)) {
+    //     const guildCommand = guildCommands.find(command => command.name === commandWithPermissions.name);
+    //     if (guildCommand !== undefined) {
+    //         const permissions = await commandWithPermissions.permissions(guild);
+    //         guild.commands.permissions.set({
+    //             command: guildCommand.id,
+    //             permissions: permissions
+    //         });
+    //     }
+    // }
 }
