@@ -16,8 +16,8 @@ export const ReadyEvent: Event = {
             setGuildCommands(guild);
         });
 
-        await fetchLeaderboardData(cFAContractAddress);
+        // await fetchLeaderboardData(cFAContractAddress);
 
-        console.log(`${client.user.username} is online.`);
+        // console.log(`${client.user.username} is online.`);
     }
 };
