@@ -4,5 +4,5 @@ import { LeaderboardCommand } from "./commands/LeaderboardCommand";
 
 export const Commands: Command[] = [
     ViewCommand,
-    LeaderboardCommand
+    // LeaderboardCommand
 ];
