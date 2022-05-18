@@ -11,10 +11,10 @@ export async function processViewCFCommand(interaction: CommandInteraction) {
         if (number < 0 || number > maximumCFIndex) {
             return await interaction.reply({ content: "No CF under this number.", ephemeral: true });
         }
-        displayCF(interaction, number);
+        await displayCF(interaction, number);
     } else if (interaction.options.getSubcommand() === "random") {
         const randomNumber = Math.floor(Math.random() * (maximumCFIndex + 1))
-        displayCF(interaction, randomNumber);
+        await displayCF(interaction, randomNumber);
     } else {
         return await interaction.reply({ 
             content: "This did not work. But why? Do you know it? Because I do not.", 
