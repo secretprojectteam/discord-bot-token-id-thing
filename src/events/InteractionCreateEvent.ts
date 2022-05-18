@@ -14,10 +14,10 @@ export const InteractionCreateEvent: Event = {
                 await command.execute(interaction);
             } catch (error) {
                 if (!(error instanceof Error)) { throw error; }
-                interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+                await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
             }
         } else if (interaction.isButton()) {
-            handleLeaderboardInteraction(interaction);
+            await handleLeaderboardInteraction(interaction);
         }
     }
 };
