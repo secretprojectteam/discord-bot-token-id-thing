@@ -4,6 +4,7 @@ import { maximumCFAIndex } from "../../utilities/dotenv";
 
 export async function processViewCFACommand(interaction: CommandInteraction) {
     if (interaction.options.getSubcommand() === "specific") {
+        console.log("specific CFA");
         const number = interaction.options.getInteger("number");
         if (number !== 0 && !number) {
             return await interaction.reply({ content: "Please provide a valid CFA number.", ephemeral: true });
@@ -13,6 +14,7 @@ export async function processViewCFACommand(interaction: CommandInteraction) {
         }
         await displayCFA(interaction, number);
     } else if (interaction.options.getSubcommand() === "random") {
+        console.log("random CFA");
         const randomNumber = Math.floor(Math.random() * (maximumCFAIndex + 1))
         await displayCFA(interaction, randomNumber);
     } else {

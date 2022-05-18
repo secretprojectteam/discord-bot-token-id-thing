@@ -15,7 +15,7 @@ async function setGuildCommandPermissions(guild: Guild, commands: Command[]) {
         const guildCommand = guildCommands.find(command => command.name === commandWithPermissions.name);
         if (guildCommand !== undefined) {
             const permissions = await commandWithPermissions.permissions(guild);
-            guild.commands.permissions.set({
+            await guild.commands.permissions.set({
                 command: guildCommand.id,
                 permissions: permissions
             });
