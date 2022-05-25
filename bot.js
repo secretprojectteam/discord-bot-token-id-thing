@@ -104,6 +104,7 @@ async function displaySVG(message, svg, title, url) {
     let i = new Image();
     i.src = svg;
     console.log("loading");
+    i.onerror = err => { throw err }
     i.onload = () => {
         console.log("done loading");
         context.drawImage(i, 0,0 );
