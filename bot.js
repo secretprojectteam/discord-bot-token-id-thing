@@ -74,6 +74,7 @@ function buildTheHTML(svg) {
         svg{
             width: 400px; 
             height: 400px;
+            font-family: "Times New Roman", sans-serif;
         }
         </style>
     </head>
