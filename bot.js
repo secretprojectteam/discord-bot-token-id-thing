@@ -18,7 +18,10 @@ const axios = require('axios');
 
 const cfaContract = new web3.eth.Contract(abi, cFAContractAddress);
 const cfContract = new web3.eth.Contract(abi, cFContractAddress);
-const { Image } = require('canvas')
+
+const { createCanvas, Image } = require('canvas')
+const width = 400;
+const height = 400;
 
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -95,20 +98,31 @@ function buildTheHTML(svg) {
  * @returns {Promise<void>}
  */
 async function displaySVG(message, svg, title, url) {
-    const html = buildTheHTML(svg);
+    // const html = buildTheHTML(svg);
     let t = tmpName(16);
 
-    const img = new Image();
-    img.src=svg;
+    const canvas = createCanvas(width, height);
 
-    const file = new MessageAttachment(buffer, t+".png");
+    const context = canvas.getContext("2d");
 
-    const embed = new MessageEmbed()
-        .setTitle(title)
-        .setURL(url)
-        .setImage("attachment://"+t+".png");
+    let i = new Image();
+    i.src = svg;
+    i.onload = () => {
+        context.drawImage(i, 0,0 );
+        const buffer = canvas.toBuffer("image/png");
 
-    message.channel.send({ embeds: [embed], files: [file] });
+        const fs = require("fs");
+        fs.writeFileSync("./"+t+".png", buffer);
+
+        const file = new MessageAttachment(buffer, t+".png");
+
+        const embed = new MessageEmbed()
+            .setTitle(title)
+            .setURL(url)
+            .setImage("attachment://"+t+".png");
+
+        message.channel.send({ embeds: [embed], files: [file] });
+    }
 }
 
 function tmpName(n) {
