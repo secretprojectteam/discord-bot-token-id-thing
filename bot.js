@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Client, Intents } = require('discord.js');
+const { Client, Intents, MessageAttachment, MessageEmbed } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 require('dotenv').config();
 
@@ -63,9 +63,6 @@ client.on('ready', async () => {
 
 client.login(process.env.DISCORD_BOT_KEY);
 
-
-const { MessageAttachment, MessageEmbed } = require("discord.js");
-
 function buildTheHTML(svg) {
     return `
 <!DOCTYPE html>
@@ -106,7 +103,9 @@ async function displaySVG(message, svg, title, url) {
 
     let i = new Image();
     i.src = svg;
+    console.log("loading");
     i.onload = () => {
+        console.log("done loading");
         context.drawImage(i, 0,0 );
         const buffer = canvas.toBuffer("image/png");
 
