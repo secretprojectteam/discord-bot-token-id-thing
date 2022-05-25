@@ -102,7 +102,6 @@ async function displaySVG(message, svg, title, url) {
     const context = canvas.getContext("2d");
 
     let i = new Image();
-    i.src = svg;
     console.log("loading");
     i.onerror = err => { throw err }
     i.onload = () => {
@@ -122,6 +121,7 @@ async function displaySVG(message, svg, title, url) {
 
         message.channel.send({ embeds: [embed], files: [file] });
     }
+    i.src = svg;
 }
 
 function tmpName(n) {
