@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 require('dotenv').config();
@@ -17,6 +18,8 @@ const axios = require('axios');
 
 const cfaContract = new web3.eth.Contract(abi, cFAContractAddress);
 const cfContract = new web3.eth.Contract(abi, cFContractAddress);
+const svg2png = require("svg2png");
+
 
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -97,19 +100,22 @@ async function displaySVG(message, svg, title, url) {
 
     console.log(html);
 
-    const output = await nodeHtmlToImage({
-        html: html,
-        quality: 100,
-        type: "png",
-        puppeteerArgs: {
-            args: ["--no-sandbox"],
-        },
-        encoding: "binary"
-    });
+    // const output = await nodeHtmlToImage({
+    //     html: html,
+    //     quality: 100,
+    //     type: "png",
+    //     puppeteerArgs: {
+    //         args: ["--no-sandbox"],
+    //     },
+    //     encoding: "binary"
+    // });
 
     let t = tmpName(16);
 
-    const file = new MessageAttachment(output, t+".png");
+    let buffer = svg2png.sync(svg, { width: 400, height: 400 });
+    fs.writeFileSync("/tmp/"+t+".png", buffer);
+
+    const file = new MessageAttachment(buffer, t+".png");
 
     const embed = new MessageEmbed()
         .setTitle(title)
