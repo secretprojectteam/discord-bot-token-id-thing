@@ -94,6 +94,8 @@ function buildTheHTML(svg) {
 async function displaySVG(message, svg, title, url) {
     const html = buildTheHTML(svg);
 
+    console.log(html);
+
     const output = await nodeHtmlToImage({
         html: html,
         quality: 100,
