@@ -65,7 +65,6 @@ client.login(process.env.DISCORD_BOT_KEY);
 
 
 const { MessageAttachment, MessageEmbed } = require("discord.js");
-const nodeHtmlToImage = require("node-html-to-image");
 
 function buildTheHTML(svg) {
     return `
