@@ -101,7 +101,7 @@ async function displaySVG(message, svg, title, url) {
         puppeteerArgs: {
             args: ["--no-sandbox"],
         },
-        encoding: "base64"
+        encoding: "binary"
     });
 
     let t = tmpName(16);
