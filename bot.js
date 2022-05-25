@@ -77,9 +77,9 @@ function buildTheHTML(svg) {
         }
         </style>
     </head>
-    <bod>
+    <body>
         ${svg}
-    </bod>
+    </body>
 </html>
 `
 }
@@ -101,7 +101,7 @@ async function displaySVG(message, svg, title, url) {
         puppeteerArgs: {
             args: ["--no-sandbox"],
         },
-        encoding: "binary"
+        encoding: "base64"
     });
 
     let t = tmpName(16);
