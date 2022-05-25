@@ -97,6 +97,8 @@ async function displaySVG(message, svg, title, url) {
     // const html = buildTheHTML(svg);
     let t = tmpName(16);
 
+    fs.writeFileSync('/tmp/'+t+".svg", svg);
+
     const canvas = createCanvas(width, height);
 
     const context = canvas.getContext("2d");
@@ -121,7 +123,7 @@ async function displaySVG(message, svg, title, url) {
 
         message.channel.send({ embeds: [embed], files: [file] });
     }
-    i.src = svg;
+    i.src = '/tmp/'+t+".svg";
 }
 
 function tmpName(n) {
