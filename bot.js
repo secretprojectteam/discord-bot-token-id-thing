@@ -18,8 +18,7 @@ const axios = require('axios');
 
 const cfaContract = new web3.eth.Contract(abi, cFAContractAddress);
 const cfContract = new web3.eth.Contract(abi, cFContractAddress);
-const svg2png = require("svg2png");
-
+const { Image } = require('canvas')
 
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -97,23 +96,10 @@ function buildTheHTML(svg) {
  */
 async function displaySVG(message, svg, title, url) {
     const html = buildTheHTML(svg);
-
-    console.log(html);
-
-    // const output = await nodeHtmlToImage({
-    //     html: html,
-    //     quality: 100,
-    //     type: "png",
-    //     puppeteerArgs: {
-    //         args: ["--no-sandbox"],
-    //     },
-    //     encoding: "binary"
-    // });
-
     let t = tmpName(16);
 
-    let buffer = svg2png.sync(svg, { width: 400, height: 400 });
-    fs.writeFileSync("/tmp/"+t+".png", buffer);
+    const img = new Image();
+    img.src=svg;
 
     const file = new MessageAttachment(buffer, t+".png");
 
